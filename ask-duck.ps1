@@ -1,4 +1,6 @@
-# Makes Rest-Api Call to search engine
+# Handle null respons
 param ($question)
  $response = Invoke-RestMethod -Method get -Uri 'https://api.duckduckgo.com' -Body   @{q = $question;format = "json"} -TimeoutSec 5
- $response.AbstractText
+ if ($response) {$response.AbstractText}
+ else
+ {"Found nothing about $question"}
