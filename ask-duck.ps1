@@ -1,4 +1,4 @@
-#  Make it into a class to better control output and return
+# short class instantiating
 class oracle {
 [string] get_answer($question){
  $TextRespons = "Found nothing about: $question"
@@ -10,11 +10,11 @@ class oracle {
         {$response.AbstractText}{$TextRespons =  $response.AbstractText -ireplace '</?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->', '';break}
         {$response.RelatedTopics[0].Text}{$TextRespons =  $response.RelatedTopics[0].Text , '';break}
      }
-     Write-Host $response.Heading -ForegroundColor DarkRed; Write-Host "$TextRespons" -ForegroundColor DarkGreen;
+     Write-Host $response.Heading -ForegroundColor DarkRed; Write-Host $TextRespons -ForegroundColor DarkGreen | Format-Table;
   }   
        
     return  $TextRespons 
  }
  }
-  $o = new-object -TypeName oracle
+  [oracle]::$o
   $o.get_answer('DuckDuckGo')
